@@ -114,6 +114,7 @@ var _ = {};
   			results.push(array[i]);
   		}
   	}
+    return results;
   };
 
 
