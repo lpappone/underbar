@@ -132,7 +132,7 @@ var _ = {};
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
-  };
+  
 
   /*
    * TIP: map is really handy when you want to transform an array of
@@ -155,6 +155,7 @@ var _ = {};
   // Calls the method named by methodName on each value in the list.
   // Note: you will nead to learn a bit about .apply to complete this.
   _.invoke = function(collection, functionOrKey, args) {
+    functionOrKey.apply(this, collection);
   };
 
   // Reduces an array or object to a single value by repetitively calling
