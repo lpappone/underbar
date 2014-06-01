@@ -154,15 +154,17 @@ var _ = {};
 
   // Calls the method named by methodName on each value in the list.
   // Note: you will nead to learn a bit about .apply to complete this.
-  _.invoke = function(collection, functionOrKey, args) {
-    _.each(collection, function(x) {
-      if(typeof (functionOrKey) === 'string') {
-        x[functionOrKey]();
-      }
-      else {
-        functionOrKey.apply(x);
-      }
+  // _.invoke(['a', 'b'], function(item) { return item.toUpperCase();})
+  _.invoke = function(collection, methodName, args) {
+    if (typeof(methodName) === "string") {
+      return _.map(collection, function(item) {
+        return item[methodName].apply(item, args);
       });
+    } else {
+      return _.map(collection, function(item) {
+        return methodName.apply(item, args);
+      });
+    }
   };
 
   // Reduces an array or object to a single value by repetitively calling
@@ -179,7 +181,16 @@ var _ = {};
   //     return total + number;
   //   }, 0); // should be 6
   _.reduce = function(collection, iterator, accumulator) {
-  };
+    var total;
+    if (accumulator === undefined) {total = collection[0]} else {
+      total = accumulator
+    };
+    //var total = accumulator //|| collection[0];
+    _.each(collection, function(item) {
+      total = iterator(total, item)
+    });
+    return total;
+    };
 
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
