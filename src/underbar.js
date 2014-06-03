@@ -211,13 +211,7 @@ var _ = {};
     // 	return iterator(item);
     // }, true);
 
-    // iterator = (iterator == null ? _.identity() : iterator)
-    // var results = _.map(collection, iterator);
-    // if (_.contains(results, false)) {
-    // 	return false
-    // } else {
-    // 	return true
-    // }
+    iterator = (iterator == null ? _.identity : iterator)
     return _.reduce(collection, function(truthTest, item){
       if(!truthTest){
         return false;
