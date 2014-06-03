@@ -210,12 +210,20 @@ var _ = {};
     // 	}
     // 	return iterator(item);
     // }, true);
-    var results = _.map(collection, iterator);
-    if (_.contains(results, false)) {
-    	return false
-    } else {
-    	return true
-    }
+
+    // iterator = (iterator == null ? _.identity() : iterator)
+    // var results = _.map(collection, iterator);
+    // if (_.contains(results, false)) {
+    // 	return false
+    // } else {
+    // 	return true
+    // }
+    return _.reduce(collection, function(truthTest, item){
+      if(!truthTest){
+        return false;
+      }
+      return !!iterator(item);
+    }, true);
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
