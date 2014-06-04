@@ -220,7 +220,7 @@ var _ = {};
     // TIP: There's a very clever way to re-use every() here.
     if (collection.length === 0) {return false};
     for (var i = 0; i < collection.length; i++) {
-      if ((Boolean(iterator(collection[i]))) === true) {
+      if ((!!iterator(collection[i])) == true) {
         return true;
       } else {
       return false;
