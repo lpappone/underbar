@@ -218,8 +218,8 @@ var _ = {};
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
-    iterator = (iterator == null ? _.identity : iterator); //in the spec there is no iterator 
-    //given to the test "passes for set containing one truthy value that is a string"
+    iterator = (iterator == null ? _.identity : iterator); 
+    //using for loop
     if (collection.length === 0) {return false};
     var result = false;
     for (var i = 0; i < collection.length; i++) {
@@ -228,11 +228,15 @@ var _ = {};
       }
     }
     return result;
+    //using reduce
+    return _.reduce(collection, function(truthTest, item) {
+    	if (truthTest) {
+    		return true
+    	}
+    	return !!iterator(item);
+    }, false)
     };
-
-
-
-//test comment 
+ 
   /**
    * OBJECTS
    * =======
@@ -252,7 +256,30 @@ var _ = {};
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
+  	var extenders = Array.prototype.slice.call(arguments, 1)
+  	_.each(extenders, function(arg) {
+  		_.each(arg, function(key, value) {
+  			obj[key] = value;
+  		})
+  	})
+  	return obj;
   };
+
+ 
+
+// _.each = function(collection, iterator) {
+//   	if(Array.isArray(collection)) {
+//   		for (var i = 0; i < collection.length; i++) {
+//   			iterator(collection[i], i, collection);
+//         }
+//   	}
+//   	else {
+//   		for (var i in collection) {
+//   			iterator(collection[i], i, collection);
+//   		}                         
+
+//   	}
+
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
