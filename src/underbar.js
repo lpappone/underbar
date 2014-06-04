@@ -218,15 +218,17 @@ var _ = {};
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    iterator = (iterator == null ? _.identity : iterator); //in the spec there is no iterator 
+    //given to the test "passes for set containing one truthy value that is a string"
     if (collection.length === 0) {return false};
+    var result = false;
     for (var i = 0; i < collection.length; i++) {
       if ((!!iterator(collection[i])) == true) {
-        return true;
-      } else {
-      return false;
+        result = true;
+      }
     }
-    }
-  };
+    return result;
+    };
 
 
 
