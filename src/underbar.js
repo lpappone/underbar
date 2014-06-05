@@ -54,14 +54,11 @@ var _ = {};
   		for (var i = 0; i < collection.length; i++) {
   			iterator(collection[i], i, collection);
         }
-  	}
-  	else {
+  	} else {
   		for (var i in collection) {
   			iterator(collection[i], i, collection);
   		}                         
-
   	}
-
   };
 
   // Returns the index at which value can be found in the array, or -1 if value
@@ -71,13 +68,11 @@ var _ = {};
     // implemented for you. Instead of using a standard `for` loop, though,
     // it uses the iteration helper `each`, which you will need to write.
     var result = -1;
-
     _.each(array, function(item, index) {
       if (item === target && result === -1) {
         result = index;
       }
     });
-
     return result;
   };
 
@@ -256,34 +251,26 @@ var _ = {};
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
-  	var extenders = Array.prototype.slice.call(arguments, 1)
-  	_.each(extenders, function(arg) {
-  		_.each(arg, function(key, value) {
+  	var extenders = Array.prototype.slice.call(arguments, 1);
+  	_.each(extenders, function(args) {
+  		_.each(args, function(value, key) {
   			obj[key] = value;
   		})
   	})
   	return obj;
   };
-
- 
-
-// _.each = function(collection, iterator) {
-//   	if(Array.isArray(collection)) {
-//   		for (var i = 0; i < collection.length; i++) {
-//   			iterator(collection[i], i, collection);
-//         }
-//   	}
-//   	else {
-//   		for (var i in collection) {
-//   			iterator(collection[i], i, collection);
-//   		}                         
-
-//   	}
-
+  //extend works but I'm not sure I understand it.
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+  	var extenders = Array.prototype.slice.call(arguments, 1);
+  	for (var i = 0; i < extenders.length; i++) {
+  		for (var key in extenders[i]) {
+  		  if (obj.hasOwnProperty(key) == false) {
+          
+        }
+  	}
   };
 
 
