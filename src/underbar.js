@@ -259,6 +259,7 @@ var _ = {};
   	})
   	return obj;
   };
+
   //extend works but I'm not sure I understand it.
 
   // Like extend, but doesn't ever overwrite a key that already
@@ -274,8 +275,6 @@ var _ = {};
     }
     return obj;
   };
-
-
   /**
    * FUNCTIONS
    * =========
