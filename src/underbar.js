@@ -268,9 +268,11 @@ var _ = {};
   	for (var i = 0; i < extenders.length; i++) {
   		for (var key in extenders[i]) {
   		  if (obj.hasOwnProperty(key) == false) {
-          
+          obj[key] = extenders[i][key];
         }
-  	}
+  	  }
+    }
+    return obj;
   };
 
 
