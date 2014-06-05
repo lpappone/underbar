@@ -313,6 +313,16 @@ var _ = {};
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    var previousResults = {};
+
+    return function(n) {
+      if (previousResults.hasOwnProperty(n) == true) {
+        return previousResults[n];
+      } else {
+        previousResults[n] = func.apply(this, arguments);
+        return previousResults[n];
+      }
+    };
   };
 
   // Delays a function for the given number of milliseconds, and then calls
