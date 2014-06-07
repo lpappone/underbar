@@ -332,6 +332,14 @@ var _ = {};
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    var args = Array.prototype.slice.call(arguments, 2)
+    var startTime = (Date.now() + wait);
+    function checkTime() {
+      if (startTime <= Date.now()) {
+        return func.apply(this, args);
+      }
+    };
+    setInterval(checkTime, 100);
   };
 
 
@@ -374,7 +382,23 @@ var _ = {};
   // The new array should contain all elements of the multidimensional array.
   //
   // Hint: Use Array.isArray to check if something is an array
+  // this returns the right thing, but still fails the test?????
   _.flatten = function(nestedArray, result) {
+    console.log("running flatten")
+    var newArray = [];
+    function runThroughArray(arr) {
+      for (var i = 0; i < arr.length; i++) {
+        if (Array.isArray(arr[i]) == false) {
+          console.log("pushing " + arr[i])
+          newArray.push(arr[i]);
+        } else { 
+          runThroughArray(arr[i]);
+        }
+      }
+      return newArray;
+    };
+    runThroughArray(nestedArray);
+    console.log(newArray);
   };
 
   // Takes an arbitrary number of arrays and produces an array that contains
