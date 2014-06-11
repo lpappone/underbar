@@ -378,6 +378,20 @@ var _ = {};
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
   _.sortBy = function(collection, iterator) {
+  	if ((typeof collection[0] === 'object') && (collection[0].hasOwnProperty(iterator))) {
+  		var sortable = [];
+  		var result = [];
+  		for (var i = 0; i < collection.length; i++) {
+  			sortable.push([i, collection[i][iterator]]);
+  		}
+  		sortable = sortable.sort(function(a, b) {return a[1] - b[1]});
+  		for (var i = 0; i < sortable.length; i++) {
+  			result.push(collection[sortable[i][0]]);
+  		}
+  		return result;
+  	} else {
+  		return collection.sort(function(a, b) {return a - b});
+  	}
   };
 
   // Zip together two or more arrays with elements of the same index
@@ -394,12 +408,10 @@ var _ = {};
   // Hint: Use Array.isArray to check if something is an array
   // this returns the right thing, but still fails the test?????
   _.flatten = function(nestedArray, result) {
-    console.log("running flatten")
     var newArray = [];
     function runThroughArray(arr) {
       for (var i = 0; i < arr.length; i++) {
         if (Array.isArray(arr[i]) == false) {
-          console.log("pushing " + arr[i])
           newArray.push(arr[i]);
         } else { 
           runThroughArray(arr[i]);
@@ -407,8 +419,7 @@ var _ = {};
       }
       return newArray;
     };
-    runThroughArray(nestedArray);
-    console.log(newArray);
+    return runThroughArray(nestedArray);
   };
 
   // Takes an arbitrary number of arrays and produces an array that contains
