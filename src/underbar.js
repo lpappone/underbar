@@ -389,6 +389,17 @@ var _ = {};
   			result.push(collection[sortable[i][0]]);
   		}
   		return result;
+  	} else if (iterator == "length") {
+  		var lengthList = [];
+  		var result = [];
+  		for (var i = 0; i < collection.length; i++) {
+  			lengthList.push([collection[i].length, collection[i], i]);
+  		}
+  		lengthList = lengthList.sort(function(a, b) {return a[0] - b[0]});
+        for (var i = 0; i < lengthList.length; i++) {
+        	result.push(collection[lengthList[i][2]]);
+        }
+        return result;
   	} else {
   		return collection.sort(function(a, b) {return a - b});
   	}
