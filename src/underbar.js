@@ -378,31 +378,70 @@ var _ = {};
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
   _.sortBy = function(collection, iterator) {
-  	if ((typeof collection[0] === 'object') && (collection[0].hasOwnProperty(iterator))) {
-  		var sortable = [];
-  		var result = [];
-  		for (var i = 0; i < collection.length; i++) {
-  			sortable.push([i, collection[i][iterator]]);
-  		}
-  		sortable = sortable.sort(function(a, b) {return a[1] - b[1]});
-  		for (var i = 0; i < sortable.length; i++) {
-  			result.push(collection[sortable[i][0]]);
-  		}
-  		return result;
-  	} else if (iterator == "length") {
-  		var lengthList = [];
-  		var result = [];
-  		for (var i = 0; i < collection.length; i++) {
-  			lengthList.push([collection[i].length, collection[i], i]);
-  		}
-  		lengthList = lengthList.sort(function(a, b) {return a[0] - b[0]});
-        for (var i = 0; i < lengthList.length; i++) {
-        	result.push(collection[lengthList[i][2]]);
-        }
-        return result;
-  	} else {
-  		return collection.sort(function(a, b) {return a - b});
-  	}
+   //  console.log(typeof collection[0]);
+   //  console.log(collection[0].hasOwnProperty(iterator));
+  	// if ((typeof collection[0] === 'object') && (collection[0].hasOwnProperty(iterator))) {
+   //    console.log("arrived");
+  	// 	var sortable = [];
+  	// 	var result = [];
+  	// 	for (var i = 0; i < collection.length; i++) {
+  	// 		sortable.push([i, collection[i][iterator]]);
+  	// 	}
+  	// 	sortable = sortable.sort(function(a, b) {return a[1] - b[1]});
+  	// 	for (var i = 0; i < sortable.length; i++) {
+  	// 		result.push(collection[sortable[i][0]]);
+  	// 	}
+   //    console.log(result);
+  	// 	return result;
+  	// } else if (iterator == "length") {
+   //    console.log("length goes");
+  	// 	var lengthList = [];
+  	// 	var result = [];
+  	// 	for (var i = 0; i < collection.length; i++) {
+  	// 		lengthList.push([collection[i].length, collection[i], i]);
+  	// 	}
+  	// 	lengthList = lengthList.sort(function(a, b) {return a[0] - b[0]});
+   //      for (var i = 0; i < lengthList.length; i++) {
+   //      	result.push(collection[lengthList[i][2]]);
+   //      }
+   //      return result;
+  	// } else {
+  	// 	return collection.sort(function(a, b) {return a - b});
+  	// }
+    if (typeof iterator == "string") {
+      var sortable = [];
+      var result = [];
+      for (var i = 0; i < collection.length; i++) {
+        sortable.push([i, collection[i][iterator]]);
+      }
+      sortable = sortable.sort(function(a, b) {return a[1] - b[1]});
+      for (var i = 0; i < sortable.length; i++) {
+        result.push(collection[sortable[i][0]]);
+      }
+      console.log(result);
+      return result;
+    } else {
+      var results = [];
+      results = _.map(collection, iterator);
+      console.log(results)
+      results = results.sort(function(a, b) {return a - b});
+      return results;
+    }
+    // } else if (iterator == "length") {
+    //   console.log("length goes");
+    //   var lengthList = [];
+    //   var result = [];
+    //   for (var i = 0; i < collection.length; i++) {
+    //     lengthList.push([collection[i].length, collection[i], i]);
+    //   }
+    //   lengthList = lengthList.sort(function(a, b) {return a[0] - b[0]});
+    //     for (var i = 0; i < lengthList.length; i++) {
+    //       result.push(collection[lengthList[i][2]]);
+    //     }
+    //     return result;
+    // } else {
+    //   return collection.sort(function(a, b) {return a - b});
+    // }
   };
 
   // Zip together two or more arrays with elements of the same index
