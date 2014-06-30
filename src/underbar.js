@@ -422,10 +422,15 @@ var _ = {};
       return result;
     } else {
       var results = [];
-      results = _.map(collection, iterator);
-      console.log(results)
-      results = results.sort(function(a, b) {return a - b});
-      return results;
+      var finalresult = [];
+      _.map(collection, function(a, b) {
+        results.push([iterator(a), b]);
+      });
+      results = results.sort(function(a, b) {return a[0] - b[0]});
+      for (var i = 0; i < results.length; i++) {
+        finalresult.push(collection[results[i][1]]);
+      }
+      return finalresult;
     }
     // } else if (iterator == "length") {
     //   console.log("length goes");
